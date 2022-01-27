@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+  font-family: 'Roboto', sans-serif;
+}
+
+:root {
+  --white:#F6F5F5;
+  --white-lighter:#f6f5f5b7;
+  --black:#3A405A;
+  --black-selected:#484F6A;
+  --teal:#1687A7;
+  --teal-darker:#276678;
+  --yellow:#F6E59B;
+  --red:#C33C54;
+  --green:#09BC8A;
+  --pink:#FFA9E7;
+
+}
+
+.sidebar {
+  background-color: var(--black);
+  color: var(--white);
+  width: 25rem;
+  height: 100vh;
+}
+
+.wrapper {
+  padding:0.5rem 2rem;
+}
+
+.logo {
+ padding-left: 2rem;
+ padding-top: 2rem;
+ margin-bottom: 2rem;
+}
+
+.sidebar__section {
+  margin: 3rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.sidebar__section--title {
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--white-lighter);
+  margin-bottom: 1rem;
+  padding: 0 2rem;
+}
+.sidebar__section--link {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--white);
+  text-decoration: none;
+  display: flex;
+  padding: 0.5rem 0;
+}
+
+.link--wrapper {
+  padding: 0.2rem 2rem;
+  padding-bottom: 0.4rem;
+}
+
+.link--wrapper:hover {
+  background-color: var(--black-selected);
+}
+
+.selected {
+  background-color: var(--black-selected);
+
+}
+
+
+
+.sidebar__section--link p {
+  color: var(--white);
+  align-self: center;
+  margin-left: 0.6rem;
+  margin-top: 0.6rem;
+}
