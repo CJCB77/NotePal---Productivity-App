@@ -26,11 +26,18 @@ html {
 
 }
 
+.content {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: [sidebar] 23rem [content] auto;
+  grid-template-rows: [header] 10vh [tools] auto;
+}
+
 .sidebar {
   background-color: var(--black);
   color: var(--white);
-  width: 25rem;
-  height: 100vh;
+  grid-column: sidebar;
+  grid-row: 1 / span 2;
 }
 
 .wrapper {
@@ -79,11 +86,61 @@ html {
 
 }
 
-
-
 .sidebar__section--link p {
   color: var(--white);
   align-self: center;
   margin-left: 0.6rem;
   margin-top: 0.6rem;
+}
+
+.header {
+  background-color: var(--white);
+  color: var(--black);
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  grid-column: content;
+  grid-row: header;
+}
+
+.header__title{
+  display: flex;
+}
+.header__title img{
+  align-self: center;
+  margin-left: 2rem;
+}
+.header__title h1{
+  align-self: center;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.header--icon {
+  height: 3rem;
+}
+
+.header--options {
+  margin-left: auto;
+  margin-right: 2rem;
+  cursor: pointer;
+}
+
+.todo {
+  grid-column: content;
+  grid-row: tools;
+  padding:3rem;
+  color: var(--black);
+
+}
+
+.todo__list {
+  font-size: 2.4rem;
+  font-weight: 300;
+}
+
+.todo__list--item {
+  margin: 1rem 0;
 }

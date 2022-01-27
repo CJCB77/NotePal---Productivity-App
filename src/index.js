@@ -2,7 +2,7 @@ import ReactDOM from "react-dom"
 import React,{useState, useEffect} from "react"
 import "./style.css"
 import Sidebar from "./components/Sidebar"
-import ToDo from "./components/Todo"
+import Page from "./components/Page"
 
 function App () {
 
@@ -11,10 +11,11 @@ function App () {
     })
 
     return(
-        <React.Fragment>
+        <main className="content">
             <Sidebar user={userData}/>
-            <ToDo />
-        </React.Fragment>
+            <Page />
+        </main>
+
     )
 }
 
