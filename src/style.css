@@ -34,6 +34,10 @@ html {
 }
 
 .sidebar {
+  position:fixed;
+  top: 0;
+  width: 23rem;
+  height: 100vh;
   background-color: var(--black);
   color: var(--white);
   grid-column: sidebar;
@@ -131,16 +135,105 @@ html {
 .todo {
   grid-column: content;
   grid-row: tools;
-  padding:3rem;
   color: var(--black);
+  margin-left: 0.5rem;
+  padding: 0 3rem;
 
 }
+
+.todo__form {
+  display: flex;
+  margin:5rem 0;
+}
+
+.todo__form input {
+  color: var(--black);
+  height: 4rem;
+  padding: 1rem;
+  padding-top: 2rem;
+  font-size: 2.4rem;
+  font-weight: 300;
+  width: 100%;
+  border:none;
+  border-bottom: 1px solid var(--black);
+}
+
+.todo__form input:focus {
+  outline: none;
+}
+
+.todo__form input::placeholder {
+  color: var(--black);
+  font-size: 2.8rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+
+}
+
+.todo__form button {
+  margin-left: 1rem;
+  margin-top: 0.6rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 3rem;
+  color: var(--white);
+  background-color: var(--black);
+  align-self: center;
+  cursor: pointer;
+}
+
 
 .todo__list {
   font-size: 2.4rem;
   font-weight: 300;
+  height: 40vh;
+  width: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
 }
 
 .todo__list--item {
-  margin: 1rem 0;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+
+}
+.todo__list--item label {
+  cursor: pointer;
+  margin-left: 0.6rem;
+}
+
+.todo__list--item input[type="checkbox"] {
+  appearance: none;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 3px;
+  border: 1px solid var(--black);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.todo__list--item input[type="checkbox"]::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 1.4rem;
+  content: "\f00c";
+  color: #fff;
+  display: none;
+}
+
+.todo__list--item input[type="checkbox"]:checked {
+  background-color: var(--teal);
+  border: 1px solid var(--teal);
+}
+.todo__list--item input[type="checkbox"]:checked::after {
+  display: block;
+}
+
+.todo__completed h3 {
+  font-size: 2.8rem;
+  font-weight: 400;
 }
