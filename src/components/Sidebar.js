@@ -8,7 +8,7 @@ import pin from "../imgs/pin.svg"
 
 export default function Sidebar(props) {
     return(
-        <navbar className="sidebar">
+        <nav className="sidebar">
     
             <img src={logo} className="logo" />
     
@@ -45,6 +45,6 @@ export default function Sidebar(props) {
                     </a>
                 </div>
             </div>
-        </navbar>
+        </nav>
     )
 }

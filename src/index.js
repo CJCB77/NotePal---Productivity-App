@@ -3,17 +3,19 @@ import React,{useState, useEffect} from "react"
 import "./style.css"
 import Sidebar from "./components/Sidebar"
 import Page from "./components/Page"
+import todoList from "./listItems"
 
 function App () {
 
     const[userData, setUserData] = useState({
-            name: "Johnny"
+            name: "Johnny",
+            todo: todoList,
     })
 
     return(
         <main className="content">
             <Sidebar user={userData}/>
-            <Page />
+            <Page user={userData}/>
         </main>
 
     )
