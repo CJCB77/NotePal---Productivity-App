@@ -9,13 +9,12 @@ function App () {
 
     const[userData, setUserData] = useState({
             name: "Johnny",
-            todo: todoList,
     })
 
     return(
         <main className="content">
             <Sidebar user={userData}/>
-            <Page user={userData}/>
+            <Page />
         </main>
 
     )

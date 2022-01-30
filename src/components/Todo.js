@@ -1,21 +1,31 @@
 import React,{useState, useEffect} from "react"
 import "../style.css"
+import trash from "../imgs/trashcan.svg"
 
 
 
 
-export default function ToDo(props) {
+export default function ToDo() {
     
     function ListItem(props) {
         return(
             <div className="todo__list--item">
                 <input type="checkbox" id={`${props.id}`} checked={props.completed} onChange={handleChangeCheck} name="completed"/>
                 <label className={props.completed ? "crossed" : ""} htmlFor={`item${props.id}`}>{props.title}</label>
+                <img className="trashcan" src={trash} alt="" onClick={handleRemove} id={`${props.id}`} />
             </div>
         )
-    }
+    } 
 
-    const[todoItems,setTodoItems] = useState(props.todoList)
+    // let myItems = []
+    // const myItemsLocalStorage = JSON.parse(localStorage.getItem("myLocalList"))
+
+    // if (myItemsLocalStorage){
+    //     myItems = myItemsLocalStorage
+    // }
+    
+
+    const[todoItems,setTodoItems] = useState(JSON.parse(localStorage.getItem("myLocalList")) || [])
     const[inputItem, setInputItem] =useState("")
 
 
@@ -31,6 +41,14 @@ export default function ToDo(props) {
         setInputItem("")
     }
 
+    useEffect(() => {
+        localStorage.setItem("myLocalList", JSON.stringify(todoItems))
+
+    }, [todoItems]) 
+
+    
+
+
     function handleChangeCheck(event) {
         const{checked,id} = event.target
         setTodoItems((prevItems) => {
@@ -44,6 +62,14 @@ export default function ToDo(props) {
         setInputItem(() => event.target.value)
     }
 
+    function handleRemove(event) {
+        //Get item with the same id as our trash btn
+        //Get the index of that element in our array
+        //Remove it from array with splice
+        const {id} = event.target
+        setTodoItems((prevItems) => prevItems.filter((item) => item.id != id ) )
+    }
+
     const uncompletedItems = 
         todoItems.filter((item) => !item.completed)
             .map((item) => {
@@ -52,6 +78,9 @@ export default function ToDo(props) {
             )
             })
 
+
+            
+    //This does not return a list with the last checked item at the top        
     const completedItems = 
         todoItems.filter((item) => item.completed)
             .map((item) => {
@@ -59,6 +88,7 @@ export default function ToDo(props) {
                 <ListItem key={item.id} {...item} />
             )
             })
+
 
     return(
        <div className="todo">

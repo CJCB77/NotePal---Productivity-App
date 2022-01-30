@@ -3,11 +3,11 @@ import "../style.css"
 import { PageHeader } from "./PageHeader"
 import ToDo from "./ToDo"
 
-export default function Page(props) {
+export default function Page() {
     return(
         <React.Fragment>
             <PageHeader />
-            <ToDo todoList={props.user.todo} />
+            <ToDo />
         </React.Fragment>
     )
 }
