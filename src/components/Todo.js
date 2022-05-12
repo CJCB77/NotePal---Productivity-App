@@ -1,9 +1,7 @@
 import React,{useState, useEffect} from "react"
 import "../style.css"
 import trash from "../imgs/trashcan.svg"
-
-
-
+import editImg from "../imgs/edit.svg"
 
 export default function ToDo() {
     
@@ -12,64 +10,130 @@ export default function ToDo() {
             <div className="todo__list--item">
                 <input type="checkbox" id={`${props.id}`} checked={props.completed} onChange={handleChangeCheck} name="completed"/>
                 <label className={props.completed ? "crossed" : ""} htmlFor={`item${props.id}`}>{props.title}</label>
-                <img className="trashcan" src={trash} alt="" onClick={handleRemove} id={`${props.id}`} />
+                <button className="list__btn">
+                    <img className="edit" src={editImg} alt="" onClick={() => handleEdit(props.id)} />
+                </button>
+                <button className="list__btn" onClick={() => handleRemove(props.id)}>
+                    <img className="trashcan" src={trash} alt=""  />
+                </button>
             </div>
         )
     } 
-
-    // let myItems = []
-    // const myItemsLocalStorage = JSON.parse(localStorage.getItem("myLocalList"))
-
-    // if (myItemsLocalStorage){
-    //     myItems = myItemsLocalStorage
-    // }
     
+    //Todo List
+    const[todoItems,setTodoItems] = useState([])
+    const[task, setTask] =useState({
+        title:""
+    })
+    //Edited task
+    const [edit, setEdit] = useState(false)
+    const [editTask, setEditTask] = useState({
+        id:"",
+        editTitle:"",
+    })
 
-    const[todoItems,setTodoItems] = useState(JSON.parse(localStorage.getItem("myLocalList")) || [])
-    const[inputItem, setInputItem] =useState("")
-
-
-
-    function handleSubmit(event) {
-        event.preventDefault()
-        const newItem = {id:(todoItems.length + 1), title:inputItem, completed:false}
-        setTodoItems((prevItems) => {
-            return (
-                [...prevItems, newItem]
-            )
-        })
-        setInputItem("")
+    //Create error message
+    const [error, setError] = useState("")
+    
+    //Get tasks from database
+    const loadTasks = async () => {
+        const response = await fetch("http://localhost:5000/api/tasks")
+        const data = await response.json()
+        console.log(data)
+        const sortedArr = data.sort((a,b) => a.id - b.id)
+        setTodoItems(sortedArr)
     }
 
-    useEffect(() => {
-        localStorage.setItem("myLocalList", JSON.stringify(todoItems))
+    //Load tasks on component mount
+    useEffect(async () => {
+        loadTasks()
+    },[]);
 
-    }, [todoItems]) 
+    //Handle new task submit/creation
+    const handleSubmit = async(event) => {
+        event.preventDefault()
+        //Checkt task is not empty
+        if(task.title === ""){
+            setError("Please enter a task")
+        }else{
+            setError("")
+        }
+        const res = await fetch("http://localhost:5000/api/tasks", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(task),
 
-    
+        });
+        setTask({title:""})
+        loadTasks()
 
+    }
 
-    function handleChangeCheck(event) {
+    //Handle task completion check
+    const handleChangeCheck = async (event) => {
         const{checked,id} = event.target
         setTodoItems((prevItems) => {
             return(
                 prevItems.map((item) => item.id == id ? {...item,completed:checked} : item)
             )
-        })  
+        })
+        await fetch(`http://localhost:5000/api/tasks/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({completed:checked})
+        });
+
     }
 
+    //Handle task change
     function handleChange(event) {
-        setInputItem(() => event.target.value)
+        if(event.target.value.length < 150){
+            setTask({...task,title:event.target.value})
+        }else{
+            setError("Task cannot be more than 150 characters")
+        }
+
     }
 
-    function handleRemove(event) {
-        //Get item with the same id as our trash btn
-        //Get the index of that element in our array
-        //Remove it from array with splice
-        const {id} = event.target
-        setTodoItems((prevItems) => prevItems.filter((item) => item.id != id ) )
+    //Handle task deletion
+    const handleRemove = async (id) => {
+        await fetch(`http://localhost:5000/api/tasks/${id}`, {
+            method: "DELETE",
+        });
+        setTodoItems((prevItems) => prevItems.filter((item) => item.id != id ))
+    }
+    
+    // Handle task edit
+    const handleEdit = (id) => {
+        setEdit(true)
+        const item = todoItems.find((item) => item.id == id)
+        setEditTask({...editTask,id:id,editTitle:item.title})   
+    }
+    
+    //Handle task edit change
+    function handleChangeEdit(e) {
+        setEditTask({...editTask,editTitle:e.target.value})
     }
 
+    //Handle task edit submit
+    const handleEditSubmit = async (event) => {
+        event.preventDefault()
+        setEdit(false)
+        await fetch(`http://localhost:5000/api/tasks/${editTask.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({title:editTask.editTitle})
+        });
+        loadTasks()
+    }
+
+    //Save uncompleted tasks on component unmount
     const uncompletedItems = 
         todoItems.filter((item) => !item.completed)
             .map((item) => {
@@ -78,9 +142,7 @@ export default function ToDo() {
             )
             })
 
-
-            
-    //This does not return a list with the last checked item at the top        
+    //Save completed tasks on component unmount
     const completedItems = 
         todoItems.filter((item) => item.completed)
             .map((item) => {
@@ -89,12 +151,13 @@ export default function ToDo() {
             )
             })
 
-
+    //Render todo list
     return(
-       <div className="todo">
+        <div className="todo">
             <form className="todo__form" onSubmit={handleSubmit}>
-                <input type="text" name="item" value={inputItem} onChange={handleChange} placeholder="Add item to list..." autoComplete="off"/>
+                <input type="text" name="title" value={task.title} onChange={handleChange} placeholder="Add item to list..." autoComplete="off"/>
                 <button>+</button>
+                {error.length > 0 && <p className="error-message">{error}</p>}
             </form>
             <main className="todo__list">
                 {uncompletedItems}
@@ -108,6 +171,23 @@ export default function ToDo() {
                     {completedItems}
                 </div>
             </footer>
-       </div>
+            {edit && 
+                <div className="overlay">
+                    <div className="modal">
+                        <div className="modal__header">
+                            <h3>Edit Task</h3>
+                            <button className="modal__close" onClick={() => setEdit(false)} >X</button>
+                        </div> 
+                        <div className="modal__body">
+                            <form className="modal__form">
+                                <input type="text" value={editTask.editTitle} onChange={handleChangeEdit}/>
+                                <button onClick={handleEditSubmit}>Save</button>
+                            </form>
+                        </div>           
+                    </div>
+                </div>
+            }
+
+        </div>
     )
 }

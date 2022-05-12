@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from "react"
+import { Link } from "react-router-dom"
 import "../style.css"
 import logo from "../imgs/logo.svg"
 import userIcon from "../imgs/user-icon.svg"
@@ -10,7 +11,9 @@ export default function Sidebar(props) {
     return(
         <nav className="sidebar">
     
-            <img src={logo} className="logo" />
+            <Link to="/todo" className="sidebar__link"> 
+                <img src={logo} className="logo" />
+            </Link>
     
 
             <div className="sidebar__section">
@@ -33,16 +36,16 @@ export default function Sidebar(props) {
             <div className="sidebar__section">
                 <h3 className="sidebar__section--title">Organization</h3>
                 <div className="link--wrapper selected">
-                    <a href="" className="sidebar__section--link">
+                    <Link to="/todo" className="sidebar__section--link">
                         <img src={todo} alt="" />
                         <p>To-Do-List</p>
-                    </a>
+                    </Link>
                 </div>
                 <div className="link--wrapper">
-                    <a href="" className="sidebar__section--link">
+                    <Link to="/kanban" className="sidebar__section--link"> 
                         <img src={pin} alt="" />
                         <p>Notes</p>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </nav>
