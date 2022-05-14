@@ -89,10 +89,9 @@ html {
 
 .register__main {
   width: 60%;
-  padding: 5rem 8rem;
+  padding: 3rem 10rem;
   display: flex;
   flex-direction: column;
-  align-items: center;  
 
 }
 
@@ -109,6 +108,7 @@ html {
   font-size: 1.8rem;
   font-weight: 300;
   margin: 0.5rem 0;
+  align-self: center;
 }
 
 .link--blue {
@@ -119,20 +119,20 @@ html {
   color: var(--black);
 }
 
-.register__socials {
+.auth__socials {
   margin: 2rem 0;
   display: flex;
+  justify-content: space-around;
 }
 
 .btn--google {
-  margin: 0 1rem;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.404);
   border-radius: 0.5rem;
   width: 28rem;
   height: 6rem;
   color: var(--black);
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -142,14 +142,13 @@ html {
 }
 
 .btn--facebook {
-  margin: 0 1rem;
   background-color: #475993;
   border: 1px solid #475993;
   border-radius: 0.5rem;
   width: 28rem;
   height: 6rem;
   color: #ffff;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -167,7 +166,7 @@ html {
 }
 
 .separator {
-  margin: 2rem 0;
+  margin: 1rem 0;
   display: flex;
   align-items: center;
   width: 100%;
@@ -186,27 +185,23 @@ html {
 }
 
 .register__form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 0 4rem;
+  margin-top: 1rem;
 }
 
-.register__field {
+.form__field {
   display: flex;
   flex-direction: column;
   width: 100%;
   margin: 0.5rem 0;
 }
 
-.register__field label {
+.form__field label {
   font-size: 1.8rem;
   font-weight: 500;
   color: var(--black);
 }
 
-.register__field input {
+.form__field input {
   height: 5rem;
   border: 1px solid rgba(0, 0, 0, 0.404);
   border-radius: 0.5rem;
@@ -217,7 +212,7 @@ html {
   margin: 0.5rem 0;
 }
 
-.register__field input:focus {
+.form__field input:focus {
   outline: none;
 }
 
@@ -229,14 +224,47 @@ html {
 .register__terms {
   font-size: 1.60rem;
   color: var(--black);
-  margin: 0.5rem 0;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+
+.register__terms input[type=checkbox] {
+  appearance: none;
+  height: 2rem;
+  width: 2rem;
+  background-color: transparent;
+  border: 1px solid var(--black);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register__terms input[type=checkbox]::after {
+  font-family: "Font Awesome 5 free";
+  font-weight: 900;
+  content: "\f00c";
+  font-size: 1.2rem;
+  color: #fff;
+  display: none;
+}
+
+.register__terms input[type=checkbox]:checked::after {
+  display: block;
+}
+
+.register__terms input[type=checkbox]:checked {
+  background-color: var(--black);
 }
 
 .register__terms label {
   margin-left: 1rem;
 }
 
-.register__btn {
+.form__btn {
   background-color: var(--black);
   color: #ffff;
   font-size: 2.4rem;
@@ -252,6 +280,87 @@ html {
 /* Login Page */
 .login {
   display: flex;
+}
+
+.login__main {
+  width: 60%;
+  padding: 4rem 10rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.login__main h1 {
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: var(--black);
+  text-align: center;
+}
+
+.login__main h2 {
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: var(--black);
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+.form__details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.form__checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.form__checkbox label {
+  font-size: 1.6rem;
+  font-weight: 300;
+  margin-left: 0.5rem;
+}
+
+.form__checkbox input[type="checkbox"] {
+  appearance: none;
+  height: 2rem;
+  width: 2rem;
+  background-color: transparent;
+  border: 1px solid var(--black);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.form__checkbox input[type="checkbox"]:after {
+  font-family: "Font Awesome 5 free";
+  font-weight: 900;
+  content: "\f00c";
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: var(--black);
+  display: none;
+}
+
+.form__checkbox input[type="checkbox"]:checked::after {
+  display: block;
+}
+
+.form__checkbox input[type="checkbox"]:checked {
+  background-color: var(--black);
+}
+
+.recovery {
+  font-size: 1.6rem;
+  color: var(--black);
+  text-decoration: underline;
+}
+
+.txt--black {
+  font-weight:700;
 }
 
 /* Main app */

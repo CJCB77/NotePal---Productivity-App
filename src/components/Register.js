@@ -11,7 +11,7 @@ export default function Register() {
       <div className='register__main'>
         <h1 className='register__title'>Get Started</h1>
         <a className='register__link' href="#">Already have an account?<span className='link--blue'>Log in</span></a>
-        <div className='register__socials'>
+        <div className='auth__socials'>
           <button className='btn--google'>
             <img src={googleIcon} alt="" />
             Sign up with Google
@@ -21,17 +21,19 @@ export default function Register() {
             Sign up with Facebook
           </button>
         </div>
+
         <div className='separator'>
           <hr className='separator__line'/>
           <p>or</p>
           <hr className='separator__line'/>
         </div>
+
         <form action="" className='register__form'>
-          <div className='register__field'>
+          <div className='form__field'>
             <label htmlFor="email">Email</label>
             <input type="text" name="email" id="email"/>
           </div>
-          <div className='register__field'>
+          <div className='form__field'>
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password"/>
           </div>
@@ -39,7 +41,7 @@ export default function Register() {
             <input type="checkbox" id='terms' />
             <label htmlFor="terms">I agree to platform Terms of Services and Privacy Policy</label>
           </div>
-          <button className='register__btn'>Register</button>
+          <button className='form__btn'>Register</button>
         </form>
       </div>
     </section>
